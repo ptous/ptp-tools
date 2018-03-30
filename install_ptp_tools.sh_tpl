@@ -66,7 +66,7 @@ _print "${C_CY}(Enter accepts the default '${C_YL}$DEF_LIB_DIR${C_CY}')\n"
 PTP_LIB_DIR=$(_prompt "" "$DEF_LIB_DIR")
 
 _print '\n'
-_print "${C_GR}Where do you want the 'ptp' script installed?\n"
+_print "${C_GR}Where do you want the 'ptp' scripts installed?\n"
 _print "${C_CY}(Enter accepts the default '${C_YL}$DEF_BIN_DIR${C_CY}')\n"
 PTP_BIN_DIR=$(_prompt "" "$DEF_BIN_DIR")
 
@@ -86,7 +86,7 @@ sed -e '1,/_\_SCRIPT_END_\_/d' "$0" | tar xzv -C "$EXPAND_DIR" || \
 
 _print '\n'
 _print "${C_GR}Moving extracted files...\n"
-_print "  Target directory: ${EXPAND_DIR}${C_WH}\n"
+_print "-> Target directory: ${EXPAND_DIR}${C_WH}\n"
 mv -v "$EXPAND_DIR/ptp" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/ptp.py" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/.pythonrc.py" "$PTP_BIN_DIR" || _die "File move failed!"
