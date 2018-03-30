@@ -26,15 +26,21 @@ That's the main problem these tools solve. It provides the following features.
 * An optional message reminding you what virtual environment (if any) you have
   active when you start a a REPL (plain `python` or `ptpython`).
 
-### Installing these Tools
-To work with these tools, ptpython is installed as a stand-alone library
+To work in this way, ptpython is installed as a stand-alone library
 directory and made accessible by adding its location to the PYTHONPATH
 environment variable.
 
-Run the bundled `install_ptp_tools.bin` script. It will ask you where you would
-like to install the `ptpython` libraries. The default location is
-`~/opt/ptpython/site-lib`. It doesn't matter where it's installed, as long
-as you have write access to that location.
+### Installing these Tools
+
+Grab the latest `install_ptp_tools.bin` file from the [github release
+page](https://github.com/ptous/ptp-tools/releases). Alternatively, you can
+clone the repo and create the installer yourself using the `build_sfx.sh`
+script.
+
+Run `install_ptp_tools.bin` script. It will ask you where you want to install
+the `ptpython` libraries. The default location is `~/opt/ptpython/site-lib`.
+It doesn't matter where it's installed, as long as you have write access to
+that location.
 
 The installer will also prompt you for the location of script files needed to
 launch ptpython. The default location is `~/bin/ptpython`.
