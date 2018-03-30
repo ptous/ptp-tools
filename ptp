@@ -12,8 +12,8 @@ if [[ "$1" == "--upgrade" ]]; then
   exit $RC
 fi
 
-PIP_CMD="pip show ptpython --disable-pip-version-check"
-PTPYTHON_PATH=`$PIP_CMD | awk '/Location:/ {print $2}'`
+PIP_OUT=$(pip show ptpython --disable-pip-version-check 2> /dev/null)
+PTPYTHON_PATH=$(awk '/Location:/ {print $2}' <<< "$PIP_OUT")
 if [[ -z "$PTPYTHON_PATH" ]]; then
   export PYTHONPATH="$PYTHONPATH:$PTPYTHON_ROOT"
 fi
