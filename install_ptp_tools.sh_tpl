@@ -102,8 +102,8 @@ _print "${C_BD}${C_GR}Add the following to your shell profile script:\n"
 _print "${C_CY}export PATH=$PTP_BIN_DIR:\$PATH\n"
 _print '\n'
 if [[ -z "$PYTHONSTARTUP" ]]; then
-  _print "${C_GR}Optionally, include this as well\n:"
-  _print "${C_CY}export PYTHONSTARTUP=$PTP_BIN_DIR/.pythonrc\n"
+  _print "${C_GR}Optionally, include this as well:\n"
+  _print "${C_CY}export PYTHONSTARTUP=$PTP_BIN_DIR/.pythonrc.py\n"
 else
   _print "${C_GR}You already have a PYTHONSTARTUP set. If you want to use\n"
   _print "${C_GR}the REPL environment message, take a look at the code in\n"
