@@ -104,7 +104,7 @@ if [[ -z "$PYTHONSTARTUP" ]]; then
 else
   _print "${C_GR}You already have a PYTHONSTARTUP set. If you want to use\n"
   _print "${C_GR}the REPL environment message, take a look at the code in\n"
-  _print "'${C_CY}$PTP_BIN_DIR/.pythonrc${C_GR}' or replace your\n"
+  _print "'${C_CY}$PTP_BIN_DIR/.pythonrc.py${C_GR}' or replace your\n"
   _print "startup script with that one.\n"
 fi
 
