@@ -94,7 +94,7 @@ mv -v "$EXPAND_DIR/ptp" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/ptp.py" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/.pythonrc.py" "$PTP_BIN_DIR" || _die "File move failed!"
 
-sed -i "s?<<PLACEHOLDER>>?$PTP_BIN_DIR?g" "$PTP_LIB_DIR/ptp" ||
+sed -i "s?<<PLACEHOLDER>>?$PTP_LIB_DIR?g" "$PTP_BIN_DIR/ptp" ||
   _die "Unable update file '$PTP_BIN_DIR/ptp'!"
 
 _print '\n'
