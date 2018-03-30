@@ -13,7 +13,7 @@ C_NO=$'\033[0m'
 
 function _print() {
   #shellcheck disable=SC2059
-  printf "$@"
+  printf -- "$@"
 }
 
 function _die() {
@@ -76,8 +76,8 @@ pip install ptpython -t "$PTP_LIB_DIR" --upgrade || _die "pip install failed!"
 
 _print '\n'
 _print "${C_GR}Extracting files...\n${C_WH}"
-_make_dir $PTP_BIN_DIR
 EXPAND_DIR=$(TMPDIR='/tmp' mktemp -d)
+_print "-> Target directory: ${EXPAND_DIR}${C_WH}\n"
 #shellcheck disable=SC2064
 trap "_cleanup '$EXPAND_DIR'" EXIT
 
@@ -86,7 +86,7 @@ sed -e '1,/_\_SCRIPT_END_\_/d' "$0" | tar xzv -C "$EXPAND_DIR" || \
 
 _print '\n'
 _print "${C_GR}Moving extracted files...\n"
-_print "-> Target directory: ${EXPAND_DIR}${C_WH}\n"
+_make_dir $PTP_BIN_DIR
 mv -v "$EXPAND_DIR/ptp" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/ptp.py" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/.pythonrc.py" "$PTP_BIN_DIR" || _die "File move failed!"
