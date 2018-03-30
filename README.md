@@ -107,7 +107,7 @@ path selected for its libraries during the installation of these tools. It won't
 change your current Python environment's installed site libraries, even if
 `ptpython` is installed there.
 
-### Issues
+### Bugs and Issues
 
 If you find any bugs or have suggestions, feel free to open an issue on GitHub.
 
