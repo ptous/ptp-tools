@@ -33,7 +33,7 @@ environment variable.
 ### Installing these Tools
 
 Grab the latest `install_ptp_tools.bin` file from the [github release
-page](https://github.com/ptous/ptp-tools/releases). Alternatively, you can
+page](https://github.com/ptous/ptp-tools/releases/latest). Alternatively,
 clone the repo and create the installer yourself using the `build_sfx.sh`
 script.
 
