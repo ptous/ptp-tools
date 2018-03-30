@@ -112,5 +112,6 @@ If you find any bugs or have suggestions, feel free to open an issue on GitHub.
 
 This bundle has been tested on Ubuntu 16.04 and CentOS 6/7.
 
-It's possible some of the switches I've used with certain commands won't work on macOS systems. If so, let me know and I'll look for more compatible ways
+It's possible some of the switches I've used with certain commands won't work
+on macOS systems. If so, let me know and I'll look for more compatible ways
 to achieve the same effect.
