@@ -1,14 +1,14 @@
 ## Tools for use with `ptpython`
 
-### About ptpython
+### About `ptpython`
 To learn about ptpython and why it's cool and useful, check out its [git
 homepage](https://github.com/jonathanslenders/ptpython).
 
-### About these Tools
+### About These Tools
 I like testing code in a REPL interpreter. The Python REPL is quite nice
 (at least when full readline support is active), but ptpython is far nicer.
 
-Unfortunatately, to use it with a Python virtual environment, you normally need
+Unfortunately, to use it with a Python virtual environment, you normally need
 to either install it in your global Python site-packages, or install it in
 a the Python virtual environment you're working in. Either approach can be
 inconvenient, depending on what you're working on and whether any of its
@@ -30,7 +30,7 @@ To work in this way, ptpython is installed as a stand-alone library
 directory and made accessible by adding its location to the PYTHONPATH
 environment variable.
 
-### Installing these Tools
+### Installing These Tools
 
 Grab the latest `install_ptp_tools.bin` file from the [github release
 page](https://github.com/ptous/ptp-tools/releases/latest). Alternatively,
@@ -43,11 +43,10 @@ It doesn't matter where it's installed, as long as you have write access to
 that location.
 
 The installer will also prompt you for the location of script files needed to
-launch ptpython. The default location is `~/bin/ptpython`.
+launch ptpython through this tool. The default location is `~/bin/ptpython`.
 
 When everything else is done, the script will give you instructions on how to
-update your shell profile script to add the tools to you PATH (if it's not
-already there, based on where you installed it. By default, that would be the following line. (The example assumes you use `bash` as a shell.)
+update your shell profile script to add the tools to you PATH, based on where you installed it. By default, that would be the following line. (The example assumes you use `bash` as a shell.)
 
 ```bash
 export PATH=~/bin/ptpython:$PATH
@@ -57,7 +56,7 @@ If you also want to use the virtual environment message for REPLs, add this as
 well.
 
 ```bash
-export PYTHONSTARTUP=~/.pythonrc.py
+export PYTHONSTARTUP=~/bin/ptpython/.pythonrc.py
 ```
 
 ### Starting `ptpython`
