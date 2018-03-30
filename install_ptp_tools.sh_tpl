@@ -90,9 +90,9 @@ sed -e '1,/_\_SCRIPT_END_\_/d' "$0" | tar xzv -C "$EXPAND_DIR" || \
 _print '\n'
 _print "${C_GR}Moving extracted files...\n${C_WH}"
 _make_dir $PTP_BIN_DIR
-mv -v "$EXPAND_DIR/ptp" "$PTP_BIN_DIR" || _die "File move failed!"
-mv -v "$EXPAND_DIR/ptp.py" "$PTP_BIN_DIR" || _die "File move failed!"
-mv -v "$EXPAND_DIR/.pythonrc.py" "$PTP_BIN_DIR" || _die "File move failed!"
+for file in ptp ptp.py .pythonrc.py; do
+  mv -v "$EXPAND_DIR/$file" "$PTP_BIN_DIR" || _die "File move failed!"
+done
 
 sed -i "s?<<PLACEHOLDER>>?$PTP_LIB_DIR?g" "$PTP_BIN_DIR/ptp" ||
   _die "Unable update file '$PTP_BIN_DIR/ptp'!"
