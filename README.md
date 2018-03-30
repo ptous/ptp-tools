@@ -12,9 +12,9 @@ Unfortunately, to use it with a Python virtual environment, you normally need
 to either install it in your global Python site-packages, or install it in
 a the Python virtual environment you're working in. Either approach can be
 inconvenient, depending on what you're working on and whether any of its
-Python conflict with those used by ptpython. When developing in a virtual
-environment, installing ptpython there also means your virtual environment
-contains libraries that aren't necessary to whatever project you are working
+packages conflict with those used by ptpython. When developing in a virtual
+environment, installing ptpython there likely means your virtual environment
+contains libraries that aren't necessary to the project you are working
 on, which is not ideal.
 
 That's the main problem these tools solve. It provides the following features.
