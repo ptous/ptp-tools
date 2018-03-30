@@ -17,7 +17,7 @@ function _print() {
 }
 
 function _die() {
-  _print "${C_RD}${1:-Unspecified error}${C_NO}\n"
+  _print "\n${C_RD}${1:-Unspecified error}${C_NO}\n\n"
   exit ${2:-1}
 }
 
@@ -56,6 +56,8 @@ function _cleanup() {
     _print "$C_NO"
 }
 
+set -o pipefail
+
 _print "\n${C_BD}${C_WH}Installing ptpython tools...\n"
 _print "${C_GR}----------------------------\n\n"
 
@@ -72,7 +74,8 @@ PTP_BIN_DIR=$(_prompt "" "$DEF_BIN_DIR")
 
 _print "\n${C_GR}Installing python packages...\n${C_WH}"
 _make_dir "$PTP_LIB_DIR"
-pip install ptpython -t "$PTP_LIB_DIR" --upgrade || _die "pip install failed!"
+pip install ptpython -t "$PTP_LIB_DIR" --upgrade 2>&1 | \
+  sed "s,\033\[[0-9;]*[a-zA-Z],,g" || _die "Pip install failed!"
 
 _print '\n'
 _print "${C_GR}Extracting files...\n"
