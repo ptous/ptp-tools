@@ -1,0 +1,113 @@
+#!/bin/bash
+
+DEF_LIB_DIR=~/opt/ptpython/site-lib
+DEF_BIN_DIR=~/bin/ptpython
+
+C_RD=$'\033[38;5;1m'
+C_GR=$'\033[38;5;2m'
+C_YL=$'\033[38;5;3m'
+C_CY=$'\033[38;5;6m'
+C_WH=$'\033[38;5;7m'
+C_BD=$'\033[1m'
+C_NO=$'\033[0m'
+
+function _print() {
+  #shellcheck disable=SC2059
+  printf "$@"
+}
+
+function _die() {
+  _print "${C_RD}${1:-Unspecified error}${C_NO}\n"
+  exit ${2:-1}
+}
+
+function _make_dir() {
+
+  if ! mkdir -p "$1"; then
+    _die "Could not create directory '$1'"
+  fi
+}
+
+function _prompt() {
+
+  PROMPT=${1:-$"${C_WH}>> "}
+  DEFAULT=${2:-""}
+  #shellcheck disable=SC2059
+  read -r -e -p "$PROMPT" ANSWER
+  if [[ -z "$ANSWER" ]]; then
+    echo "$DEFAULT"
+  else
+    echo "$ANSWER"
+  fi
+}
+
+# Function to clean up temp dir on extract
+function _cleanup() {
+
+    _print "${C_GR}Cleaning up temp directory '$1'.\n"
+    echo ''
+
+    if [[ -z "$1" ]]; then
+        _print "${C_RD}Cannot delete empty path!\n"
+        return 1
+    elif [[ -d "$1" ]]; then
+        rm -rf "$1"
+    fi
+    _print "$C_NO"
+}
+
+_print "\n${C_BD}${C_WH}Installing ptpython tools...\n"
+_print "${C_GR}----------------------------\n\n"
+
+which pip > /dev/null || _die "Could not find the 'pip' command."
+
+_print "${C_GR}Where do you want the ptpython package installed?\n"
+_print "${C_CY}(Enter accepts the default '${C_YL}$DEF_LIB_DIR${C_CY}')\n"
+PTP_LIB_DIR=$(_prompt "" "$DEF_LIB_DIR")
+
+_print '\n'
+_print "${C_GR}Where do you want the 'ptp' script installed?\n"
+_print "${C_CY}(Enter accepts the default '${C_YL}$DEF_BIN_DIR${C_CY}')\n"
+PTP_BIN_DIR=$(_prompt "" "$DEF_BIN_DIR")
+
+_print "\n${C_GR}Installing python packages...\n${C_WH}"
+_make_dir "$PTP_LIB_DIR"
+pip install ptpython -t "$PTP_LIB_DIR" --upgrade || _die "pip install failed!"
+
+_print '\n'
+_print "${C_GR}Extracting files...\n${C_WH}"
+_make_dir $PTP_BIN_DIR
+EXPAND_DIR=$(TMPDIR='/tmp' mktemp -d)
+#shellcheck disable=SC2064
+trap "_cleanup '$EXPAND_DIR'" EXIT
+
+sed -e '1,/_\_SCRIPT_END_\_/d' "$0" | tar xzv -C "$EXPAND_DIR" || \
+  _die "Could not extract attached archive. Is it corrupt?"
+
+_print '\n'
+_print "${C_GR}Moving extracted files...\n"
+_print "  Target directory: ${EXPAND_DIR}${C_WH}\n"
+mv -v "$EXPAND_DIR/ptp" "$PTP_BIN_DIR" || _die "File move failed!"
+mv -v "$EXPAND_DIR/ptp.py" "$PTP_BIN_DIR" || _die "File move failed!"
+mv -v "$EXPAND_DIR/.pythonrc.py" "$PTP_BIN_DIR" || _die "File move failed!"
+
+sed -i "s?<<PLACEHOLDER>>?$PTP_BIN_DIR?g" "$PTP_BIN_DIR/ptp" ||
+  _die "Unable update file '$PTP_BIN_DIR/ptp'!"
+
+_print '\n'
+_print "${C_BD}${C_GR}Add the following to your shell profile script:\n"
+_print "${C_CY}export PATH=$PTP_BIN_DIR:\$PATH\n"
+_print '\n'
+if [[ -z "$PYTHONSTARTUP" ]]; then
+  _print "${C_GR}Optionally, include this as well\n:"
+  _print "${C_CY}export PYTHONSTARTUP=$PTP_BIN_DIR/.pythonrc\n"
+else
+  _print "${C_GR}You already have a PYTHONSTARTUP set. If you want to use\n"
+  _print "${C_GR}the REPL environment message, take a look at the code in\n"
+  _print "'${C_CY}$PTP_BIN_DIR/.pythonrc${C_GR}' or replace your\n"
+  _print "startup script with that one.\n"
+fi
+
+_print '\n'
+exit 0
+#___SCRIPT_END___#

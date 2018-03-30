@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PTPYTHON_ROOT="<<PLACEHOLDER>>"
+
+if [[ "$1" == "--upgrade" ]]; then
+  echo ""
+  echo "Upgrading 'ptpython'..."
+  echo "  Installation in '$PTPYTHON_ROOT'"
+  pip install ptpython -t "$PTPYTHON_ROOT" --upgrade
+  RC=$?
+  echo ""
+  exit $RC
+fi
+
+PIP_CMD="pip show ptpython --disable-pip-version-check"
+PTPYTHON_PATH=`$PIP_CMD | awk '/Location:/ {print $2}'`
+if [[ -z "$PTPYTHON_PATH" ]]; then
+  export PYTHONPATH="$PYTHONPATH:$PTPYTHON_ROOT"
+fi
+
+CUR_DIR=$(dirname "$0")
+"$CUR_DIR/ptp.py" "$@"
