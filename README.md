@@ -62,7 +62,11 @@ export PYTHONSTARTUP=~/.pythonrc.py
 
 ### Starting `ptpython`
 Once all the above steps are done, you should be able to start an interactive
-ptpython session by running the command `ptp`.
+ptpython session by running the command `ptp`. Why not use `ptpython`? Well,
+for one thing, `ptp` is shorter, but mainly I didn't want to mask any actual
+installs of ptpython on the PATH. If you don't like the name `ptp` (I can
+easily imagine that name colliding with other tools), feel free to rename or
+symlink it.
 
 ### Caveats
 As mentioned above, ptpython depends on a number of other packages. When
