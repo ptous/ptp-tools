@@ -75,7 +75,7 @@ _make_dir "$PTP_LIB_DIR"
 pip install ptpython -t "$PTP_LIB_DIR" --upgrade || _die "pip install failed!"
 
 _print '\n'
-_print "${C_GR}Extracting files...\n${C_WH}"
+_print "${C_GR}Extracting files...\n"
 EXPAND_DIR=$(TMPDIR='/tmp' mktemp -d)
 _print "-> Target directory: ${EXPAND_DIR}${C_WH}\n"
 #shellcheck disable=SC2064
@@ -85,7 +85,7 @@ sed -e '1,/_\_SCRIPT_END_\_/d' "$0" | tar xzv -C "$EXPAND_DIR" || \
   _die "Could not extract attached archive. Is it corrupt?"
 
 _print '\n'
-_print "${C_GR}Moving extracted files...\n"
+_print "${C_GR}Moving extracted files...\n${C_WH}"
 _make_dir $PTP_BIN_DIR
 mv -v "$EXPAND_DIR/ptp" "$PTP_BIN_DIR" || _die "File move failed!"
 mv -v "$EXPAND_DIR/ptp.py" "$PTP_BIN_DIR" || _die "File move failed!"
