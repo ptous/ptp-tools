@@ -5,8 +5,10 @@ To learn about ptpython and why it's cool and useful, check out its [git
 homepage](https://github.com/jonathanslenders/ptpython).
 
 ### About These Tools
-I like testing code in a REPL interpreter. The Python REPL is quite nice
-(at least when full readline support is active), but ptpython is far nicer.
+Sometimes you just can't beat manually testing something out in a REPL
+environment. When I do that with Python, I really like using Ptpython. The
+Python REPL is quite nice (at least when full readline support is active),
+but ptpython is _much_ nicer.
 
 Unfortunately, to use it with a Python virtual environment, you normally need
 to either install it in your global Python site-packages, or install it in
