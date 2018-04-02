@@ -10,16 +10,18 @@ environment. When I do that with Python, I really like using Ptpython. The
 Python REPL is quite nice (at least when full readline support is active),
 but ptpython is _much_ nicer.
 
-Unfortunately, to use it with a Python virtual environment, you normally need
-to either install it in your global Python site-packages, or install it in
-a the Python virtual environment you're working in. Either approach can be
-inconvenient, depending on what you're working on and whether any of its
-packages conflict with those used by ptpython. When developing in a virtual
-environment, installing ptpython there likely means your virtual environment
-contains libraries that aren't necessary to the project you are working
-on, which is not ideal.
+I also make a lot of use of Python virual environments. Unfortunately, to use
+ptpython with a Python virtual environment, you normally need
+to either install ptpython in the Python virtual environment you're working in,
+or install it in your global Python site-packages (which you then set the
+virtal environment to use). Either approach can be inconvenient. Since ptpython
+itself depends on several other packages, it's possible they will conflict
+with versions your project uses. Also, installing ptpython in a project's
+virtual environment likely means your add libraries that aren't necessary to
+the project you are working on, which is not ideal for things like `pip freeze`.
 
-That's the main problem these tools solve. It provides the following features.
+These are the main problem these tools solve. They provide the following
+features.
 
 * The ability to start `ptpython` without installing it in the active
   virtual environment or the Python install it's based on. There are some
@@ -76,12 +78,12 @@ you run ptpython with another Python virtual environment active, ptpython's
 virtual environment's package paths will come first (have higher priority) when
 Python loads packages. If your virtual environment uses any of the same
 libraries as ptpython, and you use different versions, then ptpython may cause
-your code to run with different versions of packages than you expect. Of course,
-this only affects code you run within the ptpython REPL.
+your code to run with different versions of packages than you expect. However,
+this _only_ affects code you run within the ptpython REPL.
 
-Similarly, if you set a PYTHONPATH, your settings will have a higher priority
-than the library path for ptpython. If your PYTHONPATH contains  conflicting
-versions of libraries used by ptpython, then ptpython may not work correctly.
+Similarly, if you have set a PYTHONPATH of your own, your settings will have a higher priority than the library path for ptpython. If your PYTHONPATH
+contains  conflicting versions of libraries used by ptpython, then ptpython
+might not work correctly.
 
 When it starts, the `ptp` command tries to determine if `ptpython` is already
 installed in your current (virtual) environment. If it is, `ptp` will defer to
