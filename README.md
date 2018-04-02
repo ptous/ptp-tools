@@ -22,7 +22,8 @@ on, which is not ideal.
 That's the main problem these tools solve. It provides the following features.
 
 * The ability to start `ptpython` without installing it in the active
-  virtual environment. There are some caveats on this - see below.
+  virtual environment or the Python install it's based on. There are some
+  caveats on this - see below.
 * The ability to work with both Python 2.7 and 3.x virtual environments.
 * A distinct REPL history file _per virtual environment_.
 * An optional message reminding you what virtual environment (if any) you have
