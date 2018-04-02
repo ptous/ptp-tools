@@ -1,8 +1,5 @@
 #!/bin/bash
 
-DEF_LIB_DIR=~/opt/ptpython/site-lib
-DEF_BIN_DIR=~/bin/ptpython
-
 C_RD=$'\033[38;5;1m'
 C_GR=$'\033[38;5;2m'
 C_YL=$'\033[38;5;3m'
@@ -10,6 +7,15 @@ C_CY=$'\033[38;5;6m'
 C_WH=$'\033[38;5;7m'
 C_BD=$'\033[1m'
 C_NO=$'\033[0m'
+
+FILES_TO_EXTRACT=(
+  ptp
+  ptp.py
+  .pythonrc.py
+)
+
+DEF_LIB_DIR=~/opt/ptpython/site-lib
+DEF_BIN_DIR=~/bin/ptpython
 
 function _print() {
   #shellcheck disable=SC2059
@@ -90,7 +96,7 @@ sed -e '1,/_\_SCRIPT_END_\_/d' "$0" | tar xzv -C "$EXPAND_DIR" || \
 _print '\n'
 _print "${C_GR}Moving extracted files...\n${C_WH}"
 _make_dir $PTP_BIN_DIR
-for file in ptp ptp.py .pythonrc.py; do
+for file in "${FILES_TO_EXTRACT[@]}"; do
   mv -v "$EXPAND_DIR/$file" "$PTP_BIN_DIR" || _die "File move failed!"
 done
 
