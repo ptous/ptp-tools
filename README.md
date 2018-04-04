@@ -6,7 +6,7 @@ homepage](https://github.com/jonathanslenders/ptpython).
 
 ### About These Tools
 Sometimes you just can't beat manually testing something out in a REPL
-environment. When I do that with Python, I really like using Ptpython. The
+environment. When I do that with Python, I really like using ptpython. The
 Python REPL is quite nice (at least when full readline support is active),
 but ptpython is _much_ nicer.
 
@@ -14,7 +14,7 @@ I also make a lot of use of Python virual environments. Unfortunately, to use
 ptpython with a Python virtual environment, you normally need
 to either install ptpython in the Python virtual environment you're working in,
 or install it in your global Python site-packages (which you then set the
-virtal environment to use). Either approach can be inconvenient. Since ptpython
+virtual environment to use). Either approach can be inconvenient. Since ptpython
 itself depends on several other packages, it's possible they will conflict
 with versions your project uses. Also, installing ptpython in a project's
 virtual environment likely means your add libraries that aren't necessary to
