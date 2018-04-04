@@ -14,8 +14,8 @@ FILES_TO_EXTRACT=(
   .pythonrc.py
 )
 
-DEF_LIB_DIR=~/opt/ptpython/site-lib
-DEF_BIN_DIR=~/bin/ptpython
+RESPONSES_FILE=~/.ptp-tools-install
+PAST_RESPONSES=$(cat "$RESPONSES_FILE" 2> /dev/null)
 
 function _print() {
   #shellcheck disable=SC2059
@@ -47,6 +47,11 @@ function _prompt() {
   fi
 }
 
+function _past_response() {
+
+  grep "$1" <<< "$PAST_RESPONSES" | cut -d= -f2
+}
+
 # Function to clean up temp dir on extract
 function _cleanup() {
 
@@ -64,6 +69,14 @@ function _cleanup() {
 
 set -o pipefail
 
+# Read past responses. Don't use 'eval'.
+DEF_LIB_DIR=$(_past_response 'PTP_LIB_DIR')
+DEF_LIB_DIR=$(_past_response 'PTP_BIN_DIR')
+
+DEF_LIB_DIR=${DEF_LIB_DIR:-~/opt/ptpython/site-lib}
+DEF_BIN_DIR=${DEF_BIN_DIR:-~/bin/ptpython}
+
+# Prompt for latest responses
 _print "\n${C_BD}${C_WH}Installing ptpython tools...\n"
 _print "${C_GR}----------------------------\n\n"
 
@@ -71,12 +84,20 @@ which pip > /dev/null || _die "Could not find the 'pip' command."
 
 _print "${C_GR}Where do you want the ptpython package installed?\n"
 _print "${C_CY}(Enter accepts the default '${C_YL}$DEF_LIB_DIR${C_CY}')\n"
-PTP_LIB_DIR=$(_prompt "" "$DEF_LIB_DIR")
+RESPONSE=$(_prompt "" "$DEF_LIB_DIR")
+PTP_LIB_DIR=${RESPONSE%/}
 
 _print '\n'
 _print "${C_GR}Where do you want the 'ptp' scripts installed?\n"
 _print "${C_CY}(Enter accepts the default '${C_YL}$DEF_BIN_DIR${C_CY}')\n"
-PTP_BIN_DIR=$(_prompt "" "$DEF_BIN_DIR")
+RESPONSE=$(_prompt "" "$DEF_BIN_DIR")
+PTP_BIN_DIR=${RESPONSE%/}
+
+RESPONSES=(
+  "PTP_LIB_DIR=${PTP_LIB_DIR}"
+  "PTP_BIN_DIR=${PTP_BIN_DIR}"
+)
+printf "%s\n" "${RESPONSES[@]}" > "$RESPONSES_FILE"
 
 _print "\n${C_GR}Installing python packages...\n${C_WH}"
 _make_dir "$PTP_LIB_DIR"
