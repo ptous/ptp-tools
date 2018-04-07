@@ -71,7 +71,7 @@ set -o pipefail
 
 # Read past responses. Don't use 'eval'.
 DEF_LIB_DIR=$(_past_response 'PTP_LIB_DIR')
-DEF_LIB_DIR=$(_past_response 'PTP_BIN_DIR')
+DEF_BIN_DIR=$(_past_response 'PTP_BIN_DIR')
 
 DEF_LIB_DIR=${DEF_LIB_DIR:-~/opt/ptpython/site-lib}
 DEF_BIN_DIR=${DEF_BIN_DIR:-~/bin/ptpython}
